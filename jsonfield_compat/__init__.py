@@ -1,7 +1,5 @@
 from __future__ import print_function
 
-from functools import partial
-
 from django.conf import settings
 from django.db import connection
 from django.db.models.signals import post_migrate
@@ -63,7 +61,7 @@ def register_app(app_config):
 
 
 if use_native_jsonfield():
-    from django.contrib.postgres.fields import JSONField as _JSONField
+    from jsonfield_compat.compat import _JSONField
 else:
     from jsonfield.fields import JSONField as _JSONField
 
