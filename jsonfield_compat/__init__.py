@@ -56,7 +56,6 @@ def handler_convert_json_fields(sender, **kwargs):
 
 
 def register_app(app_config):
-    print("Registering", app_config.verbose_name)
     post_migrate.connect(handler_convert_json_fields, sender=app_config)
 
 
