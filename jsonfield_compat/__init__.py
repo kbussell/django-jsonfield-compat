@@ -61,7 +61,10 @@ def register_app(app_config):
 
 if use_native_jsonfield():
     from jsonfield_compat.compat import _JSONField
+    from django.contrib.postgres.fields import JSONField as _JSONFormField
 else:
     from jsonfield.fields import JSONField as _JSONField
+    from jsonfield.forms import JSONFormField as _JSONFormField
 
 JSONField = _JSONField
+JSONFormField = _JSONFormField
