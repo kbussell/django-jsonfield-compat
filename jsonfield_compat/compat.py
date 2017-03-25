@@ -44,7 +44,7 @@ class _JSONField(NativeJSONField):
         return super(_JSONField, self).get_prep_lookup(lookup_type, value)
 
     def deconstruct(self):
-        name, path, args, kwargs = super(_JSONField, self).deconstruct()
+        name, _, args, kwargs = super(_JSONField, self).deconstruct()
         kwargs.setdefault('default', dict)
-        path = 'jsonfield_compat.JSONField'
+        path = 'jsonfield_compat.fields.JSONField'
         return name, path, args, kwargs
