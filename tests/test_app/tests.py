@@ -57,7 +57,7 @@ class JSONFieldCompatTest(TestCase):
                 "select data_type from information_schema.columns "
                 "where table_name = 'test_app_mymodel' "
                 "  and column_name = 'data';")
-            self.assertEqual(cursor.fetchone()[0], 'json')
+            self.assertEqual(cursor.fetchone()[0], 'jsonb')
 
 
 

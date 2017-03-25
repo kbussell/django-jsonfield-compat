@@ -20,7 +20,7 @@ def convert_column_to_json(model, column_name):
             [table_name, column_name])
 
         current_type = cursor.fetchone()[0].upper()
-        expected_type = 'JSON' if use_native_jsonfield() else 'TEXT'
+        expected_type = 'JSONB' if use_native_jsonfield() else 'TEXT'
 
         if current_type != expected_type:
             print("{app}: Converting {col} to use native {type} field".format(
