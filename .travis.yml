@@ -12,8 +12,8 @@ env:
   matrix:
     - DJANGO_VERSION=1.9.* DB=postgresql
     - DJANGO_VERSION=1.10.* DB=postgresql
-    - DJANGO_VERSION=1.9.* DB=mysql
-    - DJANGO_VERSION=1.10.* DB=mysql
+    - DJANGO_VERSION=1.9.* DB=sqlite3
+    - DJANGO_VERSION=1.10.* DB=sqlite3
 
 dist: trusty
 
@@ -22,7 +22,6 @@ addons:
 
 services:
     - postgresql
-    - mysql-server-5.5
 
 install:
   - pip install -q Django==$DJANGO_VERSION
@@ -32,8 +31,6 @@ install:
 before_script:
   - sh -c "if [ '$DB' = 'postgresql' ]; then psql -c 'DROP DATABASE IF EXISTS travisdb;' -U postgres; fi"
   - sh -c "if [ '$DB' = 'postgresql' ]; then psql -c 'CREATE DATABASE travisdb;' -U postgres; fi"
-  - sh -c "if [ '$DB' = 'mysql' ]; then mysql -e 'DROP DATABASE IF EXISTS travisdb;'; fi"
-  - sh -c "if [ '$DB' = 'mysql' ]; then mysql -e 'CREATE DATABASE travisdb;'; fi"
 
 script:
   - coverage run --source=jsonfield_compat tests/runtests.py
