@@ -16,10 +16,11 @@ Installation
 
 `pip install django-jsonfield-compat`
 
-Adjust all instances of importing JSONField to jsonfield_compat's definition (including all migration files!)
+Adjust all instances of importing `JSONField` and `JSONFormField` to `jsonfield_compat`'s definition (including all migration files!)
 
 ```
 from jsonfield_compat import JSONField
+from jsonfield_compat.forms import JSONFormField
 ```
 
 Register your app from the AppConfig class's `ready()` function.
@@ -42,8 +43,8 @@ class MyAppConfig(AppConfig):
 ```
 
 
-Now, when users of your application want to switch from using django-jsonfield's implementation 
-to Django's native JSONField, they add the setting:
+Now, when users of your application want to switch from using `django-jsonfield`'s implementation 
+to Django's native `JSONField`, they add the setting:
 
 ```
 USE_NATIVE_JSONFIELD = True
