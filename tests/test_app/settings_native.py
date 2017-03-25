@@ -16,3 +16,5 @@ if USE_DB == 'postgresql':
         }
     }
 
+    if DJANGO_VERSION[0:2] == (1, 8):
+        DATABASES['default']['ENGINE'] = 'django.db.backends.postgresql_psycopg2'

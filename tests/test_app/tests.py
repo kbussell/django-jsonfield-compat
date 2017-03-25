@@ -2,17 +2,18 @@ import sys
 import unittest
 from decimal import Decimal
 
+from django import VERSION
 from django.conf import settings
 from django.db import connection
 from django.test import TestCase
 
-from jsonfield_compat.util import is_db_postgresql
+from jsonfield_compat.util import django_supports_native_jsonfield, use_native_jsonfield
 from test_app.models import MyModel
 
 
 @unittest.skipUnless(
-    is_db_postgresql() and getattr(settings, 'TEST_CREATE_DATA_AS_TEXT', False),
-    "only relevant if postgresql and using native JSONField")
+    use_native_jsonfield() and getattr(settings, 'TEST_CREATE_DATA_AS_TEXT', False),
+    "only relevant if using Django's native JSONField")
 class JSONFieldCompatTest(TestCase):
     def test_native_jsonfield_uses_encoder(self):
         data = {'name': 'amount', 'value': Decimal('199.99')}
@@ -44,6 +45,24 @@ class JSONFieldCompatTest(TestCase):
             self.assertEqual(cursor.fetchone()[0], 'jsonb')
 
 
+class JSONFieldUtilTest(TestCase):
+    def test_django_supports_native_jsonfield(self):
+        if VERSION[0] == 1 and VERSION[1] <= 8:
+            self.assertFalse(django_supports_native_jsonfield())
+        else:
+            self.assertTrue(django_supports_native_jsonfield())
+
+    def test_use_native_jsonfield(self):
+        from jsonfield_compat.util import django_supports_native_jsonfield, is_db_postgresql, \
+            use_native_jsonfield
+
+        self.assertEqual(
+            use_native_jsonfield(), is_db_postgresql() and django_supports_native_jsonfield())
+
+        with self.settings(USE_NATIVE_JSONFIELD=False):
+            self.assertFalse(use_native_jsonfield())
+
+
 class ZZZJSONFieldCompatImportTest(TestCase):
     """ This test case needs to run last. It ends up importing jsonfield, which changes
         how psycopg2 works.
@@ -54,18 +73,10 @@ class ZZZJSONFieldCompatImportTest(TestCase):
         for key in keys:
             sys.modules.pop(key)
 
-    def test_use_native_jsonfield(self):
-        from jsonfield_compat.util import is_db_postgresql, use_native_jsonfield
-
-        self.assertEqual(use_native_jsonfield(), is_db_postgresql())
-
-        with self.settings(USE_NATIVE_JSONFIELD=False):
-            self.assertFalse(use_native_jsonfield())
-
     def test_right_model_field_used(self):
-        from jsonfield_compat.util import is_db_postgresql
+        from jsonfield_compat.util import django_supports_native_jsonfield, is_db_postgresql
 
-        if is_db_postgresql():
+        if is_db_postgresql() and django_supports_native_jsonfield():
             from jsonfield_compat import JSONField
             from jsonfield_compat.compat import _JSONField
             self.assertTrue(JSONField is _JSONField)
@@ -75,9 +86,9 @@ class ZZZJSONFieldCompatImportTest(TestCase):
             self.assertTrue(JSONField is _JSONField)
 
     def test_right_form_field_used(self):
-        from jsonfield_compat.util import is_db_postgresql
+        from jsonfield_compat.util import django_supports_native_jsonfield, is_db_postgresql
 
-        if is_db_postgresql():
+        if is_db_postgresql() and django_supports_native_jsonfield():
             from jsonfield_compat.forms import JSONFormField
             from django.contrib.postgres.fields import JSONField as _JSONFormField
             self.assertTrue(JSONFormField is _JSONFormField)

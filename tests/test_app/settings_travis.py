@@ -1,3 +1,4 @@
+from django import VERSION
 from test_app.settings_base import *  # NOQA
 
 USE_NATIVE_JSONFIELD = True
@@ -15,4 +16,7 @@ if USE_DB == 'postgresql':
             'PORT': '5432',
         }
     }
+
+    if DJANGO_VERSION[0:2] == (1, 8):
+        DATABASES['default']['ENGINE'] = 'django.db.backends.postgresql_psycopg2'
 

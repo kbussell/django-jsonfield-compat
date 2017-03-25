@@ -11,6 +11,8 @@ Unfortunately, these two field types cannot be used together in the same project
 
 django-jsonfield-compat was created to be able to allow 3rd-party libraries to work in both worlds.
 
+Requires Django >= 1.8
+
 Installation
 ------------
 

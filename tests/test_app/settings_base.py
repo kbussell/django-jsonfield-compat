@@ -3,6 +3,8 @@ Settings file for jsonfield_compat tests
 """
 import os
 
+from django import VERSION as DJANGO_VERSION
+
 SECRET_KEY = 'test'
 
 INSTALLED_APPS = [

@@ -4,11 +4,12 @@ from django.db import connection
 from django.db.models.signals import post_migrate
 
 from jsonfield_compat.fields import JSONField
-from jsonfield_compat.util import is_db_postgresql, use_native_jsonfield
+from jsonfield_compat.util import is_db_postgresql, use_native_jsonfield, \
+    django_supports_native_jsonfield
 
 
 def convert_column_to_json(model, column_name):
-    if not is_db_postgresql():
+    if not is_db_postgresql() or not django_supports_native_jsonfield():
         return
 
     table_name = model._meta.db_table

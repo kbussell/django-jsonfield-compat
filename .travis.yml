@@ -10,8 +10,10 @@ env:
     - PYTHONPATH="/home/travis/build/kbussell/django-jsonfield-compat"
     - TRAVIS_BUILD=true
   matrix:
+    - DJANGO_VERSION=1.8.* DB=postgresql
     - DJANGO_VERSION=1.9.* DB=postgresql
     - DJANGO_VERSION=1.10.* DB=postgresql
+    - DJANGO_VERSION=1.8.* DB=sqlite3
     - DJANGO_VERSION=1.9.* DB=sqlite3
     - DJANGO_VERSION=1.10.* DB=sqlite3
 
