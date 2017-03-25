@@ -11,6 +11,9 @@ env:
     - TRAVIS_BUILD=true
   matrix:
     - DJANGO_VERSION=1.9.* DB=postgresql
+    - DJANGO_VERSION=1.10.* DB=postgresql
+    - DJANGO_VERSION=1.9.* DB=mysql
+    - DJANGO_VERSION=1.10.* DB=mysql
 
 dist: trusty
 
@@ -19,13 +22,15 @@ addons:
 
 services:
     - postgresql
+    - mysql
 
 install:
   - "pip install -q Django==$DJANGO_VERSION"
   - "pip install q -r requirements.txt"
 
 before_script:
-  - psql -c "CREATE DATABASE travisdb;" -U postgres
-
+  - sh -c "if [ '$DB' = 'postgresql' ]; then psql -c 'DROP DATABASE IF EXISTS travisdb; CREATE DATABASE travisdb;' -U postgres; fi"
+  - sh -c "if [ '$DB' = 'mysql' ]; then mysql -e 'DROP DATABASE IF EXISTS travisdb; CREATE DATABASE travisdb;'; fi"
+  
 script:
   - python tests/runtests.py
