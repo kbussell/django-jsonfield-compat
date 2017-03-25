@@ -2,7 +2,7 @@ from django.conf import settings
 from django.core.management.commands.migrate import Command as DjangoMigrateCommand
 from django.db import connection
 
-from jsonfield_compat import is_db_postgresql
+from jsonfield_compat.util import is_db_postgresql
 
 
 class Command(DjangoMigrateCommand):

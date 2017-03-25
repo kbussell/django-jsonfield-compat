@@ -5,7 +5,7 @@ from django.conf import settings
 from django.db import connection
 from django.test import TestCase
 
-from jsonfield_compat import is_db_postgresql
+from jsonfield_compat.util import is_db_postgresql
 from test_app.models import MyModel
 
 
@@ -22,11 +22,11 @@ class JSONFieldCompatTest(TestCase):
 
     def test_right_form_field_used(self):
         if is_db_postgresql():
-            from jsonfield_compat import JSONFormField
+            from jsonfield_compat.forms import JSONFormField
             from django.contrib.postgres.fields import JSONField as _JSONFormField
             self.assertTrue(JSONFormField is _JSONFormField)
         else:
-            from jsonfield_compat import JSONFormField
+            from jsonfield_compat.forms import JSONFormField
             from jsonfield.forms import JSONFormField as _JSONFormField
             self.assertTrue(JSONFormField is _JSONFormField)
 
