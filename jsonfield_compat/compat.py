@@ -42,3 +42,9 @@ class _JSONField(NativeJSONField):
         if isinstance(value, (dict, list)):
             return Json(value, dumps=_get_dumps())
         return super(_JSONField, self).get_prep_lookup(lookup_type, value)
+
+    def deconstruct(self):
+        name, path, args, kwargs = super(_JSONField, self).deconstruct()
+        kwargs.setdefault('default', dict)
+        path = 'jsonfield_compat.JSONField'
+        return name, path, args, kwargs
