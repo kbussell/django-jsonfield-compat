@@ -13,9 +13,11 @@ env:
     - DJANGO_VERSION=1.8.* DB=postgresql
     - DJANGO_VERSION=1.9.* DB=postgresql
     - DJANGO_VERSION=1.10.* DB=postgresql
+    - DJANGO_VERSION=1.11rc1 DB=postgresql
     - DJANGO_VERSION=1.8.* DB=sqlite3
     - DJANGO_VERSION=1.9.* DB=sqlite3
     - DJANGO_VERSION=1.10.* DB=sqlite3
+    - DJANGO_VERSION=1.11rc1 DB=sqlite3
 
 dist: trusty
 
