@@ -1,6 +1,13 @@
 Changelog
 =========
 
+0.4.0 - 03/25/2017
+------------------
+
+  - **Backwards incompatible change** JSONFormField has been moved to jsonfield_compat.forms.JSONFormField
+  - More tests
+  - Travis, coveralls integration
+
 0.3.0 - 01/09/2017
 ------------------
 
