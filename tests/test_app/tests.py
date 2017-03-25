@@ -48,6 +48,9 @@ class JSONFieldCompatTest(TestCase):
         m.refresh_from_db()
         self.assertEqual(m.data, {'name': 'amount', 'value': '199.99'})
 
+        m2 = MyModel.objects.get(data__name='amount')
+        self.assertEqual(m, m2)
+
     @unittest.skipUnless(
         is_db_postgresql() and getattr(settings, 'TEST_CREATE_DATA_AS_TEXT', False),
         "only relevant if postgresql and using native JSONField")
