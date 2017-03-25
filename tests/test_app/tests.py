@@ -5,11 +5,17 @@ from django.conf import settings
 from django.db import connection
 from django.test import TestCase
 
-from jsonfield_compat.util import is_db_postgresql
+from jsonfield_compat.util import is_db_postgresql, use_native_jsonfield
 from test_app.models import MyModel
 
 
 class JSONFieldCompatTest(TestCase):
+    def test_use_native_jsonfield(self):
+        self.assertEqual(use_native_jsonfield(), is_db_postgresql())
+
+        with self.settings(USE_NATIVE_JSONFIELD=False):
+            self.assertFalse(use_native_jsonfield())
+
     def test_right_model_field_used(self):
         if is_db_postgresql():
             from jsonfield_compat import JSONField
