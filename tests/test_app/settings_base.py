@@ -1,6 +1,7 @@
 """
 Settings file for jsonfield_compat tests
 """
+import os
 
 SECRET_KEY = 'test'
 
@@ -13,6 +14,8 @@ INSTALLED_APPS = [
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
 )
+
+USE_DB = os.environ.get('DB', 'postgresql')
 
 DATABASES = {
     'default': {

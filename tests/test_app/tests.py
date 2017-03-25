@@ -10,6 +10,26 @@ from test_app.models import MyModel
 
 
 class JSONFieldCompatTest(TestCase):
+    def test_right_model_field_used(self):
+        if is_db_postgresql():
+            from jsonfield_compat import JSONField
+            from jsonfield_compat.compat import _JSONField
+            self.assertTrue(JSONField is _JSONField)
+        else:
+            from jsonfield_compat import JSONField
+            from jsonfield.fields import JSONField as _JSONField
+            self.assertTrue(JSONField is _JSONField)
+
+    def test_right_form_field_used(self):
+        if is_db_postgresql():
+            from jsonfield_compat import JSONFormField
+            from django.contrib.postgres.fields import JSONField as _JSONFormField
+            self.assertTrue(JSONFormField is _JSONFormField)
+        else:
+            from jsonfield_compat import JSONFormField
+            from jsonfield.forms import JSONFormField as _JSONFormField
+            self.assertTrue(JSONFormField is _JSONFormField)
+
     @unittest.skipUnless(
         is_db_postgresql() and getattr(settings, 'TEST_CREATE_DATA_AS_TEXT', False),
         "only relevant if postgresql and using native JSONField")
