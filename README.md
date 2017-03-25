@@ -1,19 +1,14 @@
 django-jsonfield-compat
 =======================
 
+![Travis build status](https://travis-ci.org/kbussell/django-jsonfield-compat.svg?branch=master)
+
 Django 1.9 introduced first-class support for Postgresql's json type. 
 
 Not everyone uses Postgresql, nor has upgraded to 1.9 yet, so a mixed ecosystem exists. 
 Unfortunately, these two field types cannot be used together in the same project.
 
 django-jsonfield-compat was created to be able to allow 3rd-party libraries to work in both worlds.
-
-Caution
--------
-
-This library is still under development and does not have tests yet.
-
-Including this library may make modifications to your database! Use with caution!
 
 Installation
 ------------
