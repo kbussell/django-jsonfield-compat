@@ -1,0 +1,31 @@
+language: python
+python:
+  - "2.7"
+#  - "3.3"
+#  - "3.4"
+  - "3.5"
+env:
+  global:
+    - DJANGO_SETTINGS_MODULE="test_app.settings_travis"
+    - PYTHONPATH="/home/travis/build/kbussell/django-jsonfield-compat"
+    - TRAVIS_BUILD=true
+  matrix:
+    - DJANGO_VERSION=1.9.* DB=postgresql
+
+dist: trusty
+
+addons:
+    postgresql: "9.5"
+
+services:
+    - postgresql
+
+install:
+  - "pip install -q Django==$DJANGO_VERSION"
+  - "pip install q -r requirements.txt"
+
+before_script:
+  - psql -c "CREATE DATABASE travisdb;" -U postgres
+
+script:
+  - python tests/runtests.py

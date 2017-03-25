@@ -7,7 +7,7 @@ from django.test.utils import get_runner
 
 
 def runtests():
-    os.environ['DJANGO_SETTINGS_MODULE'] = 'tests.test_app.settings_native'
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'test_app.settings_native')
     django.setup()
     TestRunner = get_runner(settings)
     test_runner = TestRunner()
