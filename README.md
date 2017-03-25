@@ -1,7 +1,8 @@
 django-jsonfield-compat
 =======================
 
-![Travis build status](https://travis-ci.org/kbussell/django-jsonfield-compat.svg?branch=master)
+![Travis Build Status](https://travis-ci.org/kbussell/django-jsonfield-compat.svg?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/kbussell/django-jsonfield-compat/badge.svg?branch=master)](https://coveralls.io/github/kbussell/django-jsonfield-compat?branch=master)
 
 Django 1.9 introduced first-class support for Postgresql's json type. 
 

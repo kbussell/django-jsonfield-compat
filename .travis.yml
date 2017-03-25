@@ -27,6 +27,7 @@ services:
 install:
   - "pip install -q Django==$DJANGO_VERSION"
   - "pip install q -r requirements.txt"
+  - "pip install coveralls"
 
 before_script:
   - sh -c "if [ '$DB' = 'postgresql' ]; then psql -c 'DROP DATABASE IF EXISTS travisdb;' -U postgres; fi"
@@ -35,4 +36,7 @@ before_script:
   - sh -c "if [ '$DB' = 'mysql' ]; then mysql -e 'CREATE DATABASE travisdb;'; fi"
 
 script:
-  - python tests/runtests.py
+  - coverage run --source=jsonfield_compat tests/runtests.py
+
+after_success:
+  coveralls
