@@ -1,6 +1,11 @@
 Changelog
 =========
 
+0.4.3 - 03/25/2017
+------------------
+
+ - Add deconstruct() call to model to prevent spurious migrations
+
 0.4.2 - 03/25/2017
 ------------------
 
