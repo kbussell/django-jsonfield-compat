@@ -1,6 +1,11 @@
 Changelog
 =========
 
+0.4.2 - 03/25/2017
+------------------
+
+ - Add Django 1.8 support
+
 0.4.1 - 03/25/2017
 ------------------
 
@@ -9,7 +14,7 @@ Changelog
 0.4.0 - 03/25/2017
 ------------------
 
-  - **Backwards incompatible change** JSONFormField has been moved to jsonfield_compat.forms.JSONFormField
+  - **Backwards incompatible change** JSONFormField has been moved to `jsonfield_compat.forms.JSONFormField`
   - More tests
   - Travis, coveralls integration
 
