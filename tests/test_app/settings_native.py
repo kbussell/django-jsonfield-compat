@@ -1,4 +1,4 @@
-from settings_base import *  # NOQA
+from test_app.settings_base import *  # NOQA
 
 USE_NATIVE_JSONFIELD = True
 

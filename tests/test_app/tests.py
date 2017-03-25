@@ -5,7 +5,7 @@ from django.conf import settings
 from django.db import connection
 from django.test import TestCase
 
-from models import MyModel
+from test_app.models import MyModel
 
 
 class JSONFieldCompatTest(TestCase):
