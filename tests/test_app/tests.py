@@ -5,12 +5,14 @@ from django.conf import settings
 from django.db import connection
 from django.test import TestCase
 
+from jsonfield_compat import is_db_postgresql
 from test_app.models import MyModel
 
 
 class JSONFieldCompatTest(TestCase):
-    @unittest.skipUnless(getattr(settings, 'TEST_CREATE_DATA_AS_TEXT', False),
-                         "only relevant if postgresql and using native JSONField")
+    @unittest.skipUnless(
+        is_db_postgresql() and getattr(settings, 'TEST_CREATE_DATA_AS_TEXT', False),
+        "only relevant if postgresql and using native JSONField")
     def test_native_jsonfield_uses_encoder(self):
         data = {'name': 'amount', 'value': Decimal('199.99')}
 
@@ -20,8 +22,9 @@ class JSONFieldCompatTest(TestCase):
         m.refresh_from_db()
         self.assertEqual(m.data, {'name': 'amount', 'value': '199.99'})
 
-    @unittest.skipUnless(getattr(settings, 'TEST_CREATE_DATA_AS_TEXT', False),
-                         "only relevant if postgresql and using native JSONField")
+    @unittest.skipUnless(
+        is_db_postgresql() and getattr(settings, 'TEST_CREATE_DATA_AS_TEXT', False),
+        "only relevant if postgresql and using native JSONField")
     def test_db_column_converted_to_json(self):
         with connection.cursor() as cursor:
             cursor.execute(
