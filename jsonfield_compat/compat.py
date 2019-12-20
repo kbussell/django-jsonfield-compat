@@ -1,4 +1,5 @@
 import json
+import six
 from functools import partial
 
 try:
@@ -9,7 +10,6 @@ except ImportError:  # pragma: no cover
     NativeJSONField = object
 
 from django.conf import settings
-from django.utils import six
 from django.utils.module_loading import import_string
 from psycopg2.extras import Json
 
